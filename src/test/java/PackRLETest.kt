@@ -1,3 +1,4 @@
+import org.junit.Assert.assertThrows
 import org.junit.Test
 import java.io.File
 import kotlin.test.assertEquals
@@ -14,6 +15,10 @@ class PackRLETest {
     @Test
     fun packRLE() {
         main("pack-rle -z -out xxx.txt input/1.txt".split(" ").toTypedArray())
+        assertThrows(IllegalArgumentException::class.java) {
+            main("pack-rle -z -out xxx.txt input/1.txt hahah".split(" ").toTypedArray())
+        }
+        main("pack-rle -u xxx.txt".split(" ").toTypedArray())
     }
 
     @Test

@@ -1,10 +1,7 @@
 import org.kohsuke.args4j.*;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.kohsuke.args4j.ExampleMode.ALL;
 
 
 public class Parser {
@@ -15,31 +12,29 @@ public class Parser {
     @Option(name = "-z", usage = "packing file", forbids = {"-u"})
     private boolean pack = false;
 
-    @Option(name = "-out", usage = "output to this file", metaVar = "OUTPUT")
+    @Option(name = "-out", usage = "output to this file (default: inputname.txt)", metaVar = "OUTPUT")
     private String out;
 
     @Argument
     private List<String> arguments = new ArrayList<String>();
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         new Parser().parseArgs(args);
     }
 
-    public void parseArgs(String[] args) throws IOException {
+    public void parseArgs(String[] args) {
         CmdLineParser parser = new CmdLineParser(this);
         try {
             parser.parseArgument(args);
-            if (arguments.isEmpty())
+            if (arguments.isEmpty() || (!pack && !unpack) || (!arguments.get(0).equals("pack-rle") || arguments.size() != 2))
                 throw new CmdLineException(parser, "No argument is given");
         } catch (CmdLineException e) {
             System.err.println(e.getMessage());
-            System.err.println("java SampleMain [options...] arguments...");
+            System.err.println("pack-rle [options...] arguments...");
             parser.printUsage(System.err);
-            System.err.println();
-            System.err.println("  Example: java SampleMain" + parser.printExample(ALL));
-            return;
+            System.err.println("\nExample: pack-rle [-u|-z] [-out outputname.txt] inputname.txt");
+            throw new IllegalArgumentException();
         }
-        if (!arguments.get(0).equals("pack-rle") && arguments.size() != 2) throw new IllegalArgumentException();
         String input = arguments.get(1);
         PackRLEKt.packRLE(pack, input, out);
     }

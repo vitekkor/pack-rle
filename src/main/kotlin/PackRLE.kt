@@ -1,5 +1,6 @@
 import java.io.File
 
+
 fun main(args: Array<String>) {
     Parser.main(args)
 }
@@ -46,6 +47,5 @@ fun packRLE(pack: Boolean, inputFile: String, outputFile: String?) {
             it.newLine()
         }
     }
-    println(File(outputFile ?: inputFile).readLines())
 }
 
