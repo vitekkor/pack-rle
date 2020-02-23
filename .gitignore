@@ -1,0 +1,11 @@
+.idea/*
+target
+out
+build/*
+.gradle/*
+report/*
+
+*.iml
+*.ipr
+*.iws
+*.zip
