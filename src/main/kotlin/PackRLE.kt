@@ -10,13 +10,15 @@ fun decode(str: String): String {
     var i = 0
     while (i in str.indices) {
         val times = str.substring(i).takeWhile { it.isDigit() }
-        if (times != "") {
-            repeat(times.toInt()) { result.append(str[i + times.count()]) }
-        } else result.append(str[i])
+        val index = dictionary.indexOf(str[i + times.count()])
+        val char = if (index != -1) '0' + index else str[i + times.count()]
+        repeat(times.toIntOrNull() ?: 1) { result.append(char) }
         i += 1 + times.count()
     }
     return result.toString()
 }
+
+private val dictionary = mutableListOf('⌂', 'À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'È','É')
 
 fun encode(string: String): String {
     if (string == "") return ""
@@ -26,14 +28,14 @@ fun encode(string: String): String {
     for (char in string) {
         if (char != prev) {
             if (count > 1) result.append(count)
-            result.append(prev)
+            if (prev.isDigit()) result.append(dictionary.elementAt(prev - '0')) else result.append(prev)
             count = 0
             prev = char
         }
         count++
     }
     if (count > 1) result.append(count)
-    result.append(prev)
+    if (prev.isDigit()) result.append(dictionary.elementAt(prev - '0')) else result.append(prev)
     return result.toString()
 }
 
