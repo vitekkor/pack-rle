@@ -21,7 +21,7 @@ class PackRLETest {
     @Test
     fun packRLE() {
         main("pack-rle -z -out output/1.txt input/1.txt".split(" ").toTypedArray())
-        assertThrows(CmdLineException("")::class.java) {
+        assertThrows(IllegalArgumentException::class.java) {
             main("pack-rle -z -out xxx.txt input/1.txt hahah".split(" ").toTypedArray())
         }
         main("pack-rle -z input/3.txt".split(" ").toTypedArray())
@@ -31,16 +31,16 @@ class PackRLETest {
         assertTrue { assertFileContent("input/3_1.txt", "input/3.txt") }
         main("pack-rle -u output/1.txt".split(" ").toTypedArray())
         assertTrue { assertFileContent("input/1.txt", "output/1.txt") }
-        assertThrows(CmdLineException("")::class.java) {
+        assertThrows(IllegalArgumentException::class.java) {
             main("pack-rle -z -u -out xxx.txt".split(" ").toTypedArray())
         }
-        assertThrows(CmdLineException("")::class.java) {
+        assertThrows(IllegalArgumentException::class.java) {
             main("pаck-rle -u xxx.txt".split(" ").toTypedArray()) //буква 'a' - русская
         }
-        assertThrows(CmdLineException("")::class.java) {
+        assertThrows(IllegalArgumentException::class.java) {
             main("pack -z xxx.txt".split(" ").toTypedArray())
         }
-        assertThrows(CmdLineException("")::class.java) {
+        assertThrows(IllegalArgumentException::class.java) {
             main("pack-rle -z".split(" ").toTypedArray())
         }
         main("pack-rle -z -out output/2.txt input/2.txt".split(" ").toTypedArray())
