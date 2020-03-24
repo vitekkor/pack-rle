@@ -49,5 +49,6 @@ fun packRLE(pack: Boolean, inputFile: String, outputFile: String?) {
             it.newLine()
         }
     }
+    println("Pack-rle: "+ if (pack) "pack" else {"unpack"}+" successful")
 }
 

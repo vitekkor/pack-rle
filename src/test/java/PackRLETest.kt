@@ -25,7 +25,9 @@ class PackRLETest {
             main("pack-rle -z -out xxx.txt input/1.txt hahah".split(" ").toTypedArray())
         }
         main("pack-rle -z input/3.txt".split(" ").toTypedArray())
-        assertTrue { assertFileContent("output/3.txt", "input/3.txt") }
+        assertTrue {
+            assertFileContent("output/3.txt", "input/3.txt")
+        }
         main("pack-rle -u input/3.txt".split(" ").toTypedArray())
         assertFalse { assertFileContent("output/3.txt", "input/3.txt") }
         assertTrue { assertFileContent("input/3_1.txt", "input/3.txt") }

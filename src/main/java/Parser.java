@@ -26,9 +26,18 @@ public class Parser {
         CmdLineParser parser = new CmdLineParser(this);
         try {
             parser.parseArgument(args);
-            if (arguments.isEmpty() || (!pack && !unpack) || (!arguments.get(0).equals("pack-rle") || arguments.size() != 2))
+            if (arguments.isEmpty() || (!pack && !unpack) || (!arguments.get(0).equals("pack-rle") || arguments.size() != 2)) {
+                System.err.println("Error entering arguments (for correct input, see the example)");
+                System.err.println("pack-rle [options...] arguments...");
+                parser.printUsage(System.err);
+                System.err.println("\nExample: pack-rle [-u|-z] [-out outputname.txt] inputname.txt");
                 throw new IllegalArgumentException("");
+            }
         } catch (CmdLineException e) {
+            System.err.println(e.getMessage());
+            System.err.println("pack-rle [options...] arguments...");
+            parser.printUsage(System.err);
+            System.err.println("\nExample: pack-rle [-u|-z] [-out outputname.txt] inputname.txt");
             throw new IllegalArgumentException("");
         }
         String input = arguments.get(1);
