@@ -10,10 +10,11 @@ fun decode(str: String): String {
     var i = 0
     while (i in str.indices) {
         val times = str.substring(i).takeWhile { it.isDigit() }
-        val index = dictionary.indexOf(str[i + times.count()])
-        val char = if (index != -1) '0' + index else str[i + times.count()]
+        val count = times.count()
+        val index = dictionary.indexOf(str[i + count])
+        val char = if (index != -1) '0' + index else str[i + count]
         repeat(times.toIntOrNull() ?: 1) { result.append(char) }
-        i += 1 + times.count()
+        i += 1 + count
     }
     return result.toString()
 }
