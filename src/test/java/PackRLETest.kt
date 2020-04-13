@@ -13,9 +13,9 @@ class PackRLETest {
         val expected = File(expectedFile).readLines()
         val actual = File(actualFile).readLines()
         for (i in actual.indices) {
-            if (expected[i] != actual[i] || expected[i].length < actual[i].length) return false
+            if (expected[i] != actual[i]) return false
         }
-        return expected == actual
+        return expected.size == actual.size
     }
 
     @Test
